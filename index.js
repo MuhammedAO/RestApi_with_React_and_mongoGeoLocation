@@ -3,8 +3,8 @@ const express = require ('express');
 
 const mongoose = require('mongoose');
 
-const keys = require ('./config/keys');
-
+// const keys = require ('./config/keys');
+const config = require('config');
 mongoose.set('useFindAndModify', false);
 
 mongoose.set('useCreateIndex', true);
@@ -15,9 +15,10 @@ const routes = require ('./routes/api');
 //setup express app
 const app = express();
 
+const db = config.get('mongoURI');
 
 mongoose
-	.connect(keys.mongoURI, {
+	.connect(db, {
 		useNewUrlParser: true,
 		autoReconnect: true,
 		useUnifiedTopology: true
@@ -26,15 +27,7 @@ mongoose
 	.catch(err => console.log(err));
 
 
-//Serve static assets if in production
-if (process.env.NODE_ENV==='production') {
-	//Set static folder
-	app.use(express.static('public'));
-  
-	app.get('*', (req,res) =>{
-		res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
-	});
-  }
+app.use(express.static('public'));
 
 //the order is important. it must always come before your routes
 // app.use(bodyParser.json());
