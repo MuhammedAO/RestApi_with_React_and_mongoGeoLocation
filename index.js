@@ -46,6 +46,6 @@ app.use((err, req, res, next) =>{
 //listen for request
 //if you're deploying your app to a hosting service e.g heroku, there might be a enviroment variable which provides which port to listen to. hence, process.env.port
 
-app.listen(process.env.port ||4000, () =>{
+app.listen(process.env.PORT ||4000, () =>{
 console.log('now listening for requests');
 });
