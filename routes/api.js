@@ -62,3 +62,5 @@ router.post('/developer', (req,res, next) =>{
 
 //export your routes for useage
   module.exports = router;
+
+  //remove config
